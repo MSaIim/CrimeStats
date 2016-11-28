@@ -1,0 +1,111 @@
+@import url("reset.css");
+
+/*\ =============================================
+|*| MAIN CSS
+|*|  - Stylesheet rules for the main site
+|*|  - Mobiles rule are mixed in (@media)
+\*| ===========================================*/
+html, body {
+  height: 100%;
+}
+
+header {
+	line-height: 48px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+header li {
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.title {
+	font-size: 24px;
+	display: inline;
+	vertical-align: middle;
+	font-family: 'Francois One', sans-serif;
+}
+
+input[type="radio"] {
+  vertical-align: text-top;
+}
+
+th {
+	font-weight: bold;
+}
+
+/* FORM CSS */
+#db-form {
+	font-family: 'Open Sans', sans-serif;
+}
+
+#db-form-sections {
+	border: 1px solid #000;
+}
+
+.info {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 20px;
+	padding: 20px;
+	padding-top: 0px;
+	display: block;
+	text-align: center;
+}
+
+.db-title {
+	font-size: 20px;
+	text-align: center;
+	display: block;
+	padding-top: 22px;
+	padding-bottom: 22px;
+	font-family: 'Bungee', cursive;
+}
+
+#arrests-by-race {
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-bottom: 20px;
+	margin-bottom: 0px;
+}
+
+#race-population {
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-bottom: 20px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+}
+
+#people-killed {
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-bottom: 20px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+}
+
+#db-form-submit {
+	padding: 10px;
+	background-color: #f9f9f9;
+	border: 1px solid #000;
+	border-top: 0px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+#db-form-submit-info {
+	margin-top: 6px;
+}
+
+#db-form-submit-btns {
+	text-align: right;
+}
+
+/* FOOTER */
+footer {
+	padding: 20px;
+}
