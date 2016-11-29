@@ -44,31 +44,47 @@
 
 				// Make correct query
 				if($offense != "Any")
+				{
 					$query = "SELECT * FROM ArrestsByRace WHERE `Offense Charged` = :offense";
-				if($offense != "Any" && $race != "Any")
-					$query = "SELECT `Offense Charged`, Total, " . $race . ", `" . $race . " Percent` FROM ArrestsByRace WHERE `Offense Charged` = :offense AND " . $race . " >= 0";
+				}
+				if($offense != "Any" && $race != "Any") 
+				{
+					$query = "SELECT `Offense Charged`, Total, " . $race . ", `" . $race . " Percent` "
+							. "FROM ArrestsByRace WHERE `Offense Charged` = :offense AND " . $race . " >= 0";
+				}
 				if($offense == "Any" && $race != "Any")
-					$query = "SELECT `Offense Charged`, Total, " . $race . ", `" . $race . " Percent` FROM ArrestsByRace WHERE " . $race . " >= 0";
+				{
+					$query = "SELECT `Offense Charged`, Total, " . $race . ", `" . $race . " Percent` "
+							. "FROM ArrestsByRace WHERE " . $race . " >= 0";
+				}
 
-				// Execute the query
-				$this->execute($query);
+				// Build field list and execute the query
+				$fields = array(":offense"=>$offense);
+				$this->execute($query, $fields);
 
 				// Create the table
-				$this->createTable("Arrests By Race", true);
+				$this->createTable("Arrests By Race");
 			}
 		}
 
 		// Execute the given query and save column names and data values
-		private function execute($query)
+		private function execute($query, $fields)
 		{
 			// Prepare the query and execute it
 			$stmt = $this->conn->prepare($query);
-			$stmt->bindParam(':offense', $offense, PDO::PARAM_STR);
+
+			// Bind the fields
+			foreach($fields as $key=>$value)
+			{
+				$stmt->bindParam($key, $value, PDO::PARAM_STR);
+			}
+
+			//$stmt->bindParam(':offense', $offense, PDO::PARAM_STR);
 			$stmt->execute();
 			$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 			// Add column names and values
-			$this->setColumnsRows($row);
+			$this->setColumnsRows($row, true);
 		}
 
 		// Add column names and data values
