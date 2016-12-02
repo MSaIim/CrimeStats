@@ -35,6 +35,16 @@ th {
 	font-weight: bold;
 }
 
+#error-message {
+	text-align: center;
+	margin-top: 50px;
+}
+
+/* RESULTS */
+.dafont {
+	font-family: 'Open Sans', sans-serif;
+}
+
 /* FORM CSS */
 #db-form {
 	font-family: 'Open Sans', sans-serif;
@@ -42,6 +52,25 @@ th {
 
 #db-form-sections {
 	border: 1px solid #000;
+}
+
+.subtext {
+	font-size: 16px;
+	display: block;
+}
+
+#results {
+	font-size: 20px;
+}
+
+#results img {
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+#results-bold {
+	font-size: 18px;
+	font-weight: bold;
 }
 
 .info {
@@ -61,6 +90,10 @@ th {
 	padding-top: 22px;
 	padding-bottom: 22px;
 	font-family: 'Bungee', cursive;
+}
+
+.db-title a:hover {
+	text-decoration: none;
 }
 
 #arrests-by-race {

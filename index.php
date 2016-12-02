@@ -7,15 +7,15 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-		<link rel="icon" type="image/png" href="images/icon.png">
-		<link rel="stylesheet" href="css/main.css">
+		<link rel="icon" type="image/png" href="assets/images/icon.png">
+		<link rel="stylesheet" href="assets/css/main.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 		<!-- FONTS -->
-		<link href="https://fonts.googleapis.com/css?family=Francois+One|Roboto|Open+Sans|Bungee" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css?family=Francois+One|Roboto|Open+Sans|Bungee" rel="stylesheet">
 	</head>
 
 <body data-target=".navbar-collapse">
@@ -24,7 +24,7 @@
 	<header class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
-				<img src="images/icon.png" width="40" height="40" /> 
+				<img src="assets/images/icon.png" width="40" height="40" /> 
 				<span class="title">Crime Statistics</span>
 
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false" aria-controls="navbar">
@@ -36,7 +36,7 @@
 
 			<nav class="navbar-collapse collapse" id="menu">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="#">Home</a></li>
+					<li class="active"><a href="index.php">Home</a></li>
 					<li><a href="#">About</a></li>
 					<li><a href="#">Help</a></li>
 				</ul>
@@ -56,11 +56,11 @@
 				<!-- ARRESTS BY RACE FORM -->
 				<div class="col-md-4" id="arrests-by-race">
 					<div class="form-group">
-						<span class="db-title"><img src="images/arrests.png" width="30" height="30" />&nbsp;&nbsp;Arrests By Race</span>
+						<span class="db-title"><img src="assets/images/arrests.png" width="30" height="30" />&nbsp;&nbsp;Arrests By Race</span>
 
 						<label for="arrests-offense">Offense:&nbsp;</label>
 						<select class="form-control" name="arrests-offense">
-							<option value="Any">Any</option>
+							<option value=""></option>
 							<option value="Murder and nonnegligent manslaughter">Murder</option>
 							<option value="Rape3">Rape</option>
 							<option value="Robbery">Robbery</option>
@@ -96,7 +96,7 @@
 						<br />
 						<label for="arrests-race">Race:&nbsp;</label>
 						<select class="form-control" name="arrests-race">
-							<option value="Any">Any</option>
+							<option value=""></option>
 							<option value="White">White</option>
 							<option value="Black">Black</option>
 							<option value="Native">Native American</option>
@@ -105,28 +105,23 @@
 						</select>
 
 						<br />
-						<label for="arrests-gt">Number Greater Than: *&nbsp;</label>
-						<input type="number" class="form-control" name="arrests-gt" min="0" max="10000000" placeholder="Enter a number" />
-						<br />
-						<label for="arrests-lt">Number Less Than: *&nbsp;</label>
-						<input type="number" class="form-control" name="arrests-lt" min="0" max="10000000" placeholder="Enter a number" />
-						<br />
-						<label for="arrests-percent-gt">Percent Greater Than: *&nbsp;</label>
-						<input type="number" class="form-control" name="arrests-percent-gt" min="0" max="100" placeholder="Enter a percentage" />
-						<br />
-						<label for="arrests-percent-lt">Percent Less Than: *&nbsp;</label>
-						<input type="number" class="form-control" name="arrests-percent-lt" min="0" max="100" placeholder="Enter a percentage" />
+						<span class="subtext">Compare with other race(s):</span>
+						<label><input type="checkbox" name="arrests-compare-white" value="White">&nbsp;White</label><br />
+						<label><input type="checkbox" name="arrests-compare-black" value="Black">&nbsp;Black</label><br />
+						<label><input type="checkbox" name="arrests-compare-native" value="Native">&nbsp;Native American</label><br />
+						<label><input type="checkbox" name="arrests-compare-asian" value="Asian">&nbsp;Asian</label><br />
+						<label><input type="checkbox" name="arrests-compare-pacific" value="Pacific">&nbsp;Pacific Islander</label><br />
 					</div>
 				</div>
 
 				<!-- PERSONS KILLED FORM -->
 				<div class="col-md-4" id="people-killed">
 					<div class="form-group">
-						<span class="db-title"><img src="images/killed.png" width="30" height="30" />&nbsp;&nbsp;People Killed</span>
+						<span class="db-title"><img src="assets/images/killed.png" width="30" height="30" />&nbsp;&nbsp;People Killed</span>
 
 						<label for="killed-states">State:&nbsp;</label>
-						<select class="form-control" name="killed-states">
-							<option value="Any">Any</option>
+						<select class="form-control" name="killed-state">
+							<option value=""></option>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
 							<option value="AZ">Arizona</option>
@@ -185,24 +180,23 @@
 						<br />
 						<label for="killed-race">Race:&nbsp;</label>
 						<select class="form-control" name="killed-race">
-							<option value="Any">Any</option>
+							<option value=""></option>
 							<option value="White">White</option>
 							<option value="Black">Black</option>
 							<option value="Native American">Native American</option>
-							<option value="Asian/Pacific Islander">Asian</option>
-							<option value="Asian/Pacific Islander">Pacific Islander</option>
+							<option value="Asian/Pacific Islander">Asian/Pacific Islander</option>
 						</select>
 
 						<br />
 						<label for="killed-gender">Gender:&nbsp;&nbsp;&nbsp;</label>
-						<label><input type="radio" name="killed-gender" value="any" checked="checked">&nbsp;Any&nbsp;&nbsp;</label>
+						<label><input type="radio" name="killed-gender" value="Any" checked="checked">&nbsp;Any&nbsp;&nbsp;</label>
 						<label><input type="radio" name="killed-gender" value="Male">&nbsp;Male&nbsp;&nbsp;</label>
 						<label><input type="radio" name="killed-gender" value="Female">&nbsp;Female</label>
 
 						<br /><br />
 						<label for="killed-classification">Classification:&nbsp;</label>
-						<select class="form-control" id="killed-classification">
-							<option value="Any">Any</option>
+						<select class="form-control" name="killed-classification">
+							<option value=""></option>
 							<option value="Death in custody">Death In Custody</option>
 							<option value="Gunshot">Gunshot</option>
 							<option value="Struck by vehicle">Struck By Vehicle</option>
@@ -212,8 +206,8 @@
 
 						<br />
 						<label for="killed-armed">Armed:&nbsp;</label>
-						<select class="form-control" id="killed-armed">
-							<option value="Any">Any</option>
+						<select class="form-control" name="killed-armed">
+							<option value=""></option>
 							<option value="No">Not Armed</option>
 							<option value="Firearm">Firearm</option>
 							<option value="Non-lethal firearm">Non-Lethal Firearm</option>
@@ -226,18 +220,18 @@
 
 						<br />
 						<label for="killed-agency">Law Enforcement Agency:</label>
-						<input type="text" class="form-control" id="killed-agency" placeholder="Oklahoma State Police" />
+						<input type="text" class="form-control" name="killed-agency" placeholder="Oklahoma State Police" />
 					</div>
 				</div>
 
 				<!-- RACE POPULATION FORM -->
 				<div class="col-md-4" id="race-population">
 					<div class="form-group">
-						<span class="db-title"><img src="images/population.png" width="30" height="30" />&nbsp;&nbsp;Race Population</span>
+						<span class="db-title"><img src="assets/images/population.png" width="30" height="30" />&nbsp;&nbsp;Race Population</span>
 
 						<label for="population-states">State:&nbsp;</label>
 						<select class="form-control" name="population-states">
-							<option value="Any">Any</option>
+							<option value=""></option>
 							<option value="United States">United States</option>
 							<option value="Alabama">Alabama</option>
 							<option value="Alaska">Alaska</option>
@@ -293,7 +287,7 @@
 						<br />
 						<label for="population-race">Race:&nbsp;</label>
 						<select class="form-control" name="population-race">
-							<option value="Any">Any</option>
+							<option value=""></option>
 							<option value="White">White</option>
 							<option value="Black">Black</option>
 							<option value="Native">Native American</option>
@@ -314,7 +308,7 @@
 			<!-- FORM SUBMIT -->
 			<div class="row" id="db-form-submit">
 				<div class="col-md-9" id="db-form-submit-info">
-						(*) Requires a value from the dropdown box above it.
+						* A value must be chosen/filled from a column to get any results for that column.
 				</div>
 				<div class="col-md-3" id="db-form-submit-btns">
 					<button type="submit" class="btn btn-primary" name="submit">Submit</button>
