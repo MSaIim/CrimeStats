@@ -1,0 +1,63 @@
+CREATE DATABASE  IF NOT EXISTS `CrimeStats` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `CrimeStats`;
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+--
+-- Host: localhost    Database: CrimeStats
+-- ------------------------------------------------------
+-- Server version	5.6.27-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `ArrestsByRace`
+--
+
+DROP TABLE IF EXISTS `ArrestsByRace`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ArrestsByRace` (
+  `Offense Charged` text,
+  `Year` int(11) DEFAULT NULL,
+  `Total` int(11) DEFAULT NULL,
+  `White` int(11) DEFAULT NULL,
+  `Black` int(11) DEFAULT NULL,
+  `Native` int(11) DEFAULT NULL,
+  `Asian` int(11) DEFAULT NULL,
+  `Pacific` int(11) DEFAULT NULL,
+  `White Percent` double DEFAULT NULL,
+  `Black Percent` double DEFAULT NULL,
+  `Native Percent` double DEFAULT NULL,
+  `Asian Percent` double DEFAULT NULL,
+  `Pacific Percent` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ArrestsByRace`
+--
+
+LOCK TABLES `ArrestsByRace` WRITE;
+/*!40000 ALTER TABLE `ArrestsByRace` DISABLE KEYS */;
+INSERT INTO `ArrestsByRace` VALUES ('TOTAL',2015,8248709,5753212,2197140,174020,101064,23273,69.7,26.6,2.1,1.2,0.3),('Murder and nonnegligent manslaughter',2015,8508,3908,4347,102,126,25,45.9,51.1,1.2,1.5,0.3),('Rape3',2015,17370,11809,4907,301,271,82,68,28.2,1.7,1.6,0.5),('Robbery',2015,73023,32439,39052,562,668,302,44.4,53.5,0.8,0.9,0.4),('Aggravated assault',2015,287566,184024,92237,5836,4631,838,64,32.1,2,1.6,0.3),('Burglary',2015,165948,112992,48907,1686,1963,400,68.1,29.5,1,1.2,0.2),('Larceny-theft',2015,893707,621585,244722,14311,11078,2011,69.6,27.4,1.6,1.2,0.2),('Motor vehicle theft',2015,59533,40000,17499,917,763,354,67.2,29.4,1.5,1.3,0.6),('Arson',2015,6762,4952,1519,177,88,26,73.2,22.5,2.6,1.3,0.4),('Violent crime4',2015,386467,232180,140543,6801,5696,1247,60.1,36.4,1.8,1.5,0.3),('Property crime4',2015,1125950,779529,312647,17091,13892,2791,69.2,27.8,1.5,1.2,0.2),('Other assaults',2015,826920,544870,254600,15039,9910,2501,65.9,30.8,1.8,1.2,0.3),('Forgery and counterfeiting',2015,42436,27419,14001,293,644,79,64.6,33,0.7,1.5,0.2),('Fraud',2015,101556,67594,31495,1157,1171,139,66.6,31,1.1,1.2,0.1),('Embezzlement',2015,12169,7378,4482,83,203,23,60.6,36.8,0.7,1.7,0.2),('Stolen property; buying, receiving, possessing',2015,68057,44561,21783,751,832,130,65.5,32,1.1,1.2,0.2),('Vandalism',2015,146090,101481,39778,2816,1667,348,69.5,27.2,1.9,1.1,0.2),('Weapons; carrying, possessing, etc.',2015,110822,63967,44284,1099,1244,228,57.7,40,1,1.1,0.2),('Prostitution and commercialized vice',2015,31362,17084,12513,111,1599,55,54.5,39.9,0.4,5.1,0.2),('Sex offenses (except rape and prostitution)',2015,39184,28650,9058,614,729,133,73.1,23.1,1.6,1.9,0.3),('Drug abuse violations',2015,1136950,803809,307140,11717,12436,1848,70.7,27,1,1.1,0.2),('Gambling',2015,3597,1296,2028,23,230,20,36,56.4,0.6,6.4,0.6),('Offenses against the family and children',2015,71865,47312,21425,2552,538,38,65.8,29.8,3.6,0.7,0.1),('Driving under the influence',2015,825218,681628,108590,16042,16421,2537,82.6,13.2,1.9,2,0.3),('Liquor laws',2015,201550,160772,27742,9788,2749,499,79.8,13.8,4.9,1.4,0.2),('Drunkenness',2015,313390,239556,44676,25660,3037,461,76.4,14.3,8.2,1,0.1),('Disorderly conduct',2015,295835,189321,91716,11912,2311,575,64,31,4,0.8,0.2),('Vagrancy',2015,19268,13247,5143,668,195,15,68.8,26.7,3.5,1,0.1),('All other offenses (except traffic)',2015,2455238,1683297,688146,49114,25197,9484,68.6,28,2,1,0.4),('Suspicion',2015,1085,479,297,293,11,5,44.1,27.4,27,1,0.5),('Curfew and loitering law violations',2015,33700,17782,15053,396,352,117,52.8,44.7,1.2,1,0.3);
+/*!40000 ALTER TABLE `ArrestsByRace` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-12-03  0:06:28
