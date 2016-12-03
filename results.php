@@ -7,7 +7,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-		<link rel="icon" type="image/png" href="assets/images/icon.png">
+		<link rel="icon" type="image/png" href="assets/images/favicon.png">
 		<link rel="stylesheet" href="assets/css/main.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
@@ -24,8 +24,10 @@
 	<header class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
-				<img src="assets/images/icon.png" width="40" height="40" /> 
-				<span class="title">Crime Statistics</span>
+				<a href="index.php">
+					<img src="assets/images/favicon.png" width="40" height="40" /> 
+					<span class="title">Crime Statistics</span>
+				</a>
 
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false" aria-controls="navbar">
 					<span class="icon-bar"></span>

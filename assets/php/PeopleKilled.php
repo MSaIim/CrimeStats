@@ -39,7 +39,6 @@
 			// Counter to see if anything is selected
 			$counter = 0;
 			$columns = "uid, name, age, gender, raceethnicity, state, classification, lawenforcementagency, armed";
-			$this->query = "";
 
 			if($this->killed_state != "")
 			{

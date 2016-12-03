@@ -7,7 +7,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-		<link rel="icon" type="image/png" href="assets/images/icon.png">
+		<link rel="icon" type="image/png" href="assets/images/favicon.png">
 		<link rel="stylesheet" href="assets/css/main.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
@@ -21,11 +21,17 @@
 <body data-target=".navbar-collapse">
 
 	<!-- HEADER -->
+	<?php 
+		include("assets/php/ListModal.php");
+		$listModal = new ListModal(); 
+	?>
 	<header class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
-				<img src="assets/images/icon.png" width="40" height="40" /> 
-				<span class="title">Crime Statistics</span>
+				<a href="index.php">
+					<img src="assets/images/favicon.png" width="40" height="40" /> 
+					<span class="title">Crime Statistics</span>
+				</a>
 
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false" aria-controls="navbar">
 					<span class="icon-bar"></span>
@@ -48,8 +54,8 @@
 	<section class="container" id="db-form">
 		<form class="form-horizontal" action="results.php" method="POST">
 			<div class="row">
-				<span class="info">Select any items you wish to know more about. 
-				Filling out more than one column will try to compare the results.</span>
+				<span class="info">Select any items you wish to know more about. You will only get results for the columns you fill out.
+				<br /><u>Note:</u> Not all fields are required in a column unless otherwise mentioned.</span>
 			</div>
 		 
 			<div class="row" id="db-form-sections">
@@ -57,7 +63,9 @@
 				<div class="col-md-4" id="arrests-by-race">
 					<div class="form-group">
 						<span class="db-title"><img src="assets/images/arrests.png" width="30" height="30" />&nbsp;&nbsp;Arrests By Race</span>
+						<span class="subtext">Check the number of offenses for each race and see how they compare to one another.</span>
 
+						<br />
 						<label for="arrests-offense">Offense:&nbsp;</label>
 						<select class="form-control" name="arrests-offense">
 							<option value=""></option>
@@ -105,7 +113,7 @@
 						</select>
 
 						<br />
-						<span class="subtext">Compare with other race(s):</span>
+						<span class="subtext">Compare with other race(s):</span> * A race must be selected above to compare. <br /><br />
 						<label><input type="checkbox" name="arrests-compare-white" value="White">&nbsp;White</label><br />
 						<label><input type="checkbox" name="arrests-compare-black" value="Black">&nbsp;Black</label><br />
 						<label><input type="checkbox" name="arrests-compare-native" value="Native">&nbsp;Native American</label><br />
@@ -118,7 +126,9 @@
 				<div class="col-md-4" id="people-killed">
 					<div class="form-group">
 						<span class="db-title"><img src="assets/images/killed.png" width="30" height="30" />&nbsp;&nbsp;People Killed</span>
+						<span class="subtext">The people killed by police officers. Has the officer's agency and info about the victim.</span>
 
+						<br />
 						<label for="killed-states">State:&nbsp;</label>
 						<select class="form-control" name="killed-state">
 							<option value=""></option>
@@ -174,8 +184,15 @@
 						</select>
 
 						<br />
-						<label for="killed-name">Name:</label>
-						<input type="text" class="form-control" name="killed-name" placeholder="Matthew Hoffman" />
+						<div class="row">
+							<div class="col-md-8"><label for="killed-name">Name:</label></div>
+							<div class="col-md-4" style="text-align: right">
+								<span class="data-table" data-toggle="modal" data-target="#nameModal">
+									<a name="nameList"><img src="assets/images/arrow.png" width="20" height="20" />See list</a>
+								</span>
+							</div>
+						</div>
+						<input type="text" class="form-control" name="killed-name" placeholder="Ex: Matthew Hoffman (See list for names)" />
 
 						<br />
 						<label for="killed-race">Race:&nbsp;</label>
@@ -219,8 +236,15 @@
 						</select>
 
 						<br />
-						<label for="killed-agency">Law Enforcement Agency:</label>
-						<input type="text" class="form-control" name="killed-agency" placeholder="Oklahoma State Police" />
+						<div class="row">
+							<div class="col-md-8"><label for="killed-agency">Law Enforcement Agency:</label></div>
+							<div class="col-md-4" style="text-align: right">
+								<span class="data-table" data-toggle="modal" data-target="#agencyModal">
+									<a name="agencyList"><img src="assets/images/arrow.png" width="20" height="20" />See list</a>
+								</span>
+							</div>
+						</div>
+						<input type="text" class="form-control" name="killed-agency" placeholder="Ex: Oklahoma State Police (See list for names)" />
 					</div>
 				</div>
 
@@ -228,7 +252,9 @@
 				<div class="col-md-4" id="race-population">
 					<div class="form-group">
 						<span class="db-title"><img src="assets/images/population.png" width="30" height="30" />&nbsp;&nbsp;Race Population</span>
+						<span class="subtext">Population of each state by race. Able to compare the percentage of the population.</span>
 
+						<br />
 						<label for="population-states">State:&nbsp;</label>
 						<select class="form-control" name="population-states">
 							<option value=""></option>
@@ -294,13 +320,6 @@
 							<option value="Asian">Asian</option>
 							<option value="Pacific">Pacific Islander</option>
 						</select>
-
-						<br />
-						<label for="population-gt">Number Greater Than: *&nbsp;</label>
-						<input type="number" class="form-control" name="population-gt" min="0" max="321418820" placeholder="Enter a number" />
-						<br />
-						<label for="population-lt">Number Less Than: *&nbsp;</label>
-						<input type="number" class="form-control" name="population-lt" min="0" max="321418820" placeholder="Enter a number" />
 					</div>
 				</div>
 			</div>
@@ -308,7 +327,7 @@
 			<!-- FORM SUBMIT -->
 			<div class="row" id="db-form-submit">
 				<div class="col-md-9" id="db-form-submit-info">
-						* A value must be chosen/filled from a column to get any results for that column.
+						CS336 - Michael Reid, Stephen Eisen, Mohammad Salim
 				</div>
 				<div class="col-md-3" id="db-form-submit-btns">
 					<button type="submit" class="btn btn-primary" name="submit">Submit</button>
@@ -318,8 +337,47 @@
 		</form>
 	</section>
 
+	<!-- NAME MODAL -->
+	<div id="nameModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Names of People Killed</h4>
+			</div>
+			<div class="modal-body">
+				<span class="info">List of all the names that can be searched.</span>
+				<?php $listModal->getList("SELECT DISTINCT name FROM PersonKilled ORDER BY name ASC"); ?>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<!-- AGENCY MODAL -->
+	<div id="agencyModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Law Enforcement Agencies</h4>
+			</div>
+			<div class="modal-body">
+				<span class="info">List of all the agencies that can be searched.</span>
+				<?php $listModal->getList("SELECT DISTINCT lawenforcementagency, state FROM PersonKilled ORDER BY state, lawenforcementagency ASC"); ?>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+	</div>
+
 	<!-- FOOTER -->
 	<footer></footer>
+	<?php $listModal->close(); ?>
 
 </body>
 </html>

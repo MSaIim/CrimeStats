@@ -1,47 +1,38 @@
 <?php
+	require_once("Connection.php");
 	require_once("ArrestsByRace.php");
 	require_once("PeopleKilled.php");
 	require_once("RacePopulation.php");
 
-	class DBCrimeStats
+	class DBCrimeStats extends Connection
 	{
 		// Connection and sql arrays
-		private $conn;
 		private $column_names = array();
 		private $column_values = array();
 
 		// Table classes
 		private $arrests;
 		private $killed;
+		private $population;
 
 		// Misc
 		private $emptyTables;
+		private $emptyColumns;
 
 		// Constructor
 		function __construct()
 		{
+			// Call super constructor
+			parent::__construct();
+
 			// Misc
 			$this->emptyTables = array();
-
-			// Connection details
-			$username = "USERNAME";
-			$password = "PASSWORD";
-			$database = "DATABASE";
-			$hostname = "HOSTNAME";
-
-			// Connect to database
-			$this->conn = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
-			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->emptyColumns = array();
 
 			// Get column classes
 			$this->arrests = new ArrestsByRace();
 			$this->killed = new PeopleKilled();
-		}
-
-		// Close the connection
-		public function close() 
-		{ 
-			$this->conn = null; 
+			$this->population = new RacePopulation();
 		}
 
 		// ARRESTS BY RACE COLUMN
@@ -57,6 +48,10 @@
 				// Get the query from the arrests by race column
 				$query = $this->killed->getQuery();
 				$this->execute($query, $this->killed->getBindings(), "People Killed");
+
+				// Get the query from the arrests by race column
+				$query = $this->population->getQuery();
+				$this->execute($query, $this->population->getBindings(), "Race Population");
 
 				// Print out messages for empty tables
 				$this->emptyMessage();
@@ -87,7 +82,7 @@
 					array_push($this->emptyTables, $tableName);
 			}
 			else
-				array_push($this->emptyTables, $tableName);
+				array_push($this->emptyColumns, $tableName);
 		}
 
 		// Add column names and data values
@@ -152,6 +147,7 @@
 		// Empty results returned
 		private function emptyMessage()
 		{
+			// Check if any of the results returned nothing
 			if(sizeof($this->emptyTables) > 0)
 			{
 				// String for tables
@@ -160,13 +156,30 @@
 				echo '<div class="container">' . "\n\t\t\t";
 				echo '<div class="row" id="error-message">' . "\n\t\t\t\t";
 				echo '<span id="results"><img src="assets/images/error.png" width="24" height="24" />';
-				echo 'No results found for the following table(s): </span>' . "\n\t\t\t\t" . '<span id="results-bold">'; 
+				echo 'No results found for the following column(s): </span>' . "\n\t\t\t\t" . '<span id="results-bold">'; 
 				
 				// Loop through to get tables names
 				foreach($this->emptyTables as $table)
 					$tableString .= $table . ', ';
 
 				echo substr($tableString, 0, strlen($tableString) - 2) . '</span>';
+				echo "\n\t\t\t" . '</div>';
+
+				echo "\n\n\t\t\t" . '<div class="row" id="error-message">';
+				echo "\n\t\t\t\t" . '<span id="results"><a href="index.php">Click here</a> to go back and try again.</span>';
+				echo "\n\t\t\t" . '</div>' . "\n\t\t" . '</div>' . "\n";
+			}
+
+			// Check if any of the columns were filled out
+			if(sizeof($this->emptyColumns) == 3)
+			{
+				// String for tables
+				$tableString = "";
+
+				echo '<div class="container">' . "\n\t\t\t";
+				echo '<div class="row" id="error-message">' . "\n\t\t\t\t";
+				echo '<span id="results"><img src="assets/images/error.png" width="24" height="24" />';
+				echo 'You must select or fill out at least one field in a column to get results.</span>';
 				echo "\n\t\t\t" . '</div>';
 
 				echo "\n\n\t\t\t" . '<div class="row" id="error-message">';

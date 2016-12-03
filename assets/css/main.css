@@ -20,6 +20,11 @@ header li {
 	font-family: 'Roboto', sans-serif;
 }
 
+html a:link { text-decoration: none; }
+html a:hover { text-decoration: none; }
+html a:active { text-decoration: none; }
+html a:visited { text-decoration: none;}
+
 .title {
 	font-size: 24px;
 	display: inline;
@@ -43,6 +48,24 @@ th {
 /* RESULTS */
 .dafont {
 	font-family: 'Open Sans', sans-serif;
+}
+
+/* MODAL */
+.data-table {
+	vertical-align: text-top;
+}
+
+.data-table img {
+	vertical-align: text-top;
+}
+
+.data-table a {
+	cursor: pointer;
+}
+
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
 }
 
 /* FORM CSS */
@@ -81,6 +104,11 @@ th {
 	padding-top: 0px;
 	display: block;
 	text-align: center;
+}
+
+.info u {
+	color: #cf4646;
+	font-weight: bold;
 }
 
 .db-title {
