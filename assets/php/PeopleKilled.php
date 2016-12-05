@@ -128,7 +128,7 @@
 				else if(isset($_POST['killed-month-count']) && $this->killed_state != "All")
 					$columns .= "state,";
 				else if(!isset($_POST['killed-race-count']) && !isset($_POST['killed-month-count']))
-					$columns .= "state,";
+					$columns .= "state,";s
 
 				// Add where clause and bind the field
 				if($this->killed_state != "All")
