@@ -47,14 +47,14 @@
 				$query = "SELECT " . $columns . " FROM (";
 
 				// Check if race selected
-				if($this->pop_race != "")
+				if($this->pop_race != "" && $this->pop_race != "All")
 				{
 					// Race chosen
 					$hasRace = true;
 
 					// Set the columns
 					if($this->pop_percent)
-						$columns .= "," . "(FORMAT ((" . $this->pop_race . "/total * 100), 1)) AS '" . $this->pop_race . " Percentage Of Total Population For State'";
+						$columns .= "," . "(FORMAT ((" . $this->pop_race . "/total * 100), 1)) AS '" . $this->pop_race . " Percentage Of Total Population'";
 					else
 						$columns .= "," . $this->pop_race;
 

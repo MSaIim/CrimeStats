@@ -134,7 +134,7 @@
 							<option value="AZ">Arizona</option>
 							<option value="AR">Arkansas</option>
 							<option value="CA">California</option>
-							<option value="CO">Colordao</option>
+							<option value="CO">Colorado</option>
 							<option value="CT">Connecticut</option>
 							<option value="DE">Delaware</option>
 							<option value="DC">District of Columbia</option>
@@ -266,7 +266,7 @@
 							<option value="Arizona">Arizona</option>
 							<option value="Arkansas">Arkansas</option>
 							<option value="California">California</option>
-							<option value="Colordao">Colordao</option>
+							<option value="Colorado">Colorado</option>
 							<option value="Connecticut">Connecticut</option>
 							<option value="Delaware">Delaware</option>
 							<option value="District of Columbia">District of Columbia</option>
@@ -334,7 +334,7 @@
 							<option value="Arizona">Arizona</option>
 							<option value="Arkansas">Arkansas</option>
 							<option value="California">California</option>
-							<option value="Colordao">Colordao</option>
+							<option value="Colorado">Colorado</option>
 							<option value="Connecticut">Connecticut</option>
 							<option value="Delaware">Delaware</option>
 							<option value="District of Columbia">District of Columbia</option>
@@ -382,7 +382,7 @@
 
 						<br /><br />
 						<span class="subtext">Other Options:</span>
-						* Race must be selected to see percentages.<br /><br />
+						* A single race must be selected to see percentages.<br /><br />
 						<label><input type="checkbox" name="population-percentage" value="White">&nbsp;Show Results As Percentages</label><br />
 					</div>
 				</div>
