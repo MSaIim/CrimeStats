@@ -1,2 +1,23 @@
-# CrimeStats
-Database project written in HTML, CSS, and PHP
+# ![](http://i.imgur.com/Bx1iRA9.png) CrimeStats
+Rutgers University database project written in HTML, CSS, and PHP using SQL to query for information.
+
+The website gives you statistics about crime from the year 2015. It aims to be as dynamic as possible so the user can pick out the information they want to know about.
+
++ Database stored using MySQL.
++ PHP PDO used for security.
++ Bootstrap used for the frontend.
+
+## ![](http://i.imgur.com/7tiJlv5.png) Usage
+You must have php install on your server. Recommendation: Use Apache or Nginx to run the web server and then install php7.0 on the server. If going the Apache route, put
+the website folder inside `/var/www/html/` (under Linux). The website URL will be `localhost` and you should see the uploaded folder there.
+
+Next, install MySQL on your machine and create a database called `CrimeStats`:
+
+```sql
+CREATE DATABASE IF NOT EXISTS CrimeStats;
+```
+
+Download the `.sql` files provided inside the `tables` folder and import the tables. The scripts include create table queries so you should only have to run them. 
+If using MySQL Workbench, go to `Server > Data Import` and navigate to the folder with the `.sql` files.
+
+Finally, inside `assets/php/Connection.php`, edit the `$username`, `$password`, and `hostname`. The `$database` value will most likely not change.
