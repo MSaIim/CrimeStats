@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `CrimeStats` /*!40100 DEFAULT CHARACTER SET latin
 USE `CrimeStats`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: crimestats.ceozafswygfi.us-east-1.rds.amazonaws.com    Database: CrimeStats
+-- Host: localhost    Database: CrimeStats
 -- ------------------------------------------------------
 -- Server version	5.6.27-log
 
@@ -35,7 +35,7 @@ CREATE TABLE `Race` (
 
 LOCK TABLES `Race` WRITE;
 /*!40000 ALTER TABLE `Race` DISABLE KEYS */;
-INSERT INTO `Race` VALUES ('White'),('Black'),('American Indian'),('Asian'),('Pacific Islander');
+INSERT INTO `Race` VALUES ('White'),('Black'),('Native American'),('Asian'),('Pacific Islander'),('American Indian'),('Asian/Pacific Islander');
 /*!40000 ALTER TABLE `Race` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-03 14:56:51
+-- Dump completed on 2016-12-04 21:02:59

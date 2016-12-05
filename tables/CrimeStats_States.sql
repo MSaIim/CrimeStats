@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `CrimeStats` /*!40100 DEFAULT CHARACTER SET latin
 USE `CrimeStats`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: crimestats.ceozafswygfi.us-east-1.rds.amazonaws.com    Database: CrimeStats
+-- Host: localhost    Database: CrimeStats
 -- ------------------------------------------------------
 -- Server version	5.6.27-log
 
