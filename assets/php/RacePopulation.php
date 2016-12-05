@@ -52,21 +52,23 @@
 		// Return the query for the race population table
 		public function getQuery()
 		{
-			// Set the fields chosen
-			$this->setFields();
-
-			// Check if race was chosen
-			if(sizeof($this->columns) == 3)
+			if($this->pop_state != "" || $this->pop_race != "")
 			{
-				$this->columns = array();
-				array_push($this->columns, "*");
-			}
+				// Set the fields chosen
+				$this->setFields();
 
-			// Build the query
-			$this->build();
+				// Check if race was chosen
+				if(sizeof($this->columns) == 3)
+				{
+					$this->columns = array();
+					array_push($this->columns, "*");
+				}
+
+				// Build the query
+				$this->build();
+			}
 			
 			// Return it
-			echo $this->query;
 			return $this->query;
 		}
 
