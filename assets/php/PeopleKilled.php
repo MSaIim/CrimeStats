@@ -123,7 +123,11 @@
 			if($this->killed_state != "")
 			{
 				// Add column
-				if(!isset($_POST['killed-race-count']) && !isset($_POST['killed-month-count']))
+				if(isset($_POST['killed-race-count']) && $this->killed_state != "All")
+					$columns .= "state,";
+				else if(isset($_POST['killed-month-count']) && $this->killed_state != "All")
+					$columns .= "state,";
+				else if(!isset($_POST['killed-race-count']) && !isset($_POST['killed-month-count']))
 					$columns .= "state,";
 
 				// Add where clause and bind the field
@@ -170,7 +174,9 @@
 			if($this->killed_month != "")
 			{
 				// Add column
-				if(isset($_POST['killed-month-count']))
+				if(isset($_POST['killed-race-count']) && $this->killed_month != "All")
+					$columns .= "month,";
+				else if(!isset($_POST['killed-race-count']))
 					$columns .= "month,";
 
 				// Add where or and clause
