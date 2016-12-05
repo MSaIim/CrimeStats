@@ -90,7 +90,7 @@
 				else
 				{
 					if($hasRace)
-						$this->query = "SELECT state,year,total," . $this->pop_race . " FROM " . $this->table . " WHERE " . $this->pop_race . " >= 0";
+						$this->query = "SELECT " . $columns . " FROM " . $this->table . " WHERE " . $this->pop_race . " >= 0";
 					else
 						$this->query = "SELECT * FROM " . $this->table;
 				}
