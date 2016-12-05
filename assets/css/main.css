@@ -36,6 +36,10 @@ input[type="radio"] {
   vertical-align: text-top;
 }
 
+input[type="checkbox"] {
+	vertical-align: text-top;
+}
+
 th {
 	font-weight: bold;
 }
@@ -43,6 +47,10 @@ th {
 #error-message {
 	text-align: center;
 	margin-top: 50px;
+}
+
+.text-right {
+	text-align: right;
 }
 
 /* RESULTS */

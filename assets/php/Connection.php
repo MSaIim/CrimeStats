@@ -6,10 +6,10 @@
 		function __construct()
 		{
 			// Connection details
-			$username = "Username";
-			$password = "Password";
+			$username = "your_username";
+			$password = "your_password";
 			$database = "CrimeStats";
-			$hostname = "Hostname";
+			$hostname = "localhost";
 
 			// Connect to database
 			$this->conn = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);

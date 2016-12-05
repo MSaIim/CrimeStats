@@ -21,10 +21,6 @@
 <body data-target=".navbar-collapse">
 
 	<!-- HEADER -->
-	<?php 
-		include("assets/php/ListModal.php");
-		$listModal = new ListModal(); 
-	?>
 	<header class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -112,7 +108,7 @@
 							<option value="Pacific">Pacific Islander</option>
 						</select>
 
-						<br />
+						<hr />
 						<span class="subtext">Compare with other race(s):</span> * A race must be selected above to compare. <br /><br />
 						<label><input type="checkbox" name="arrests-compare-white" value="White">&nbsp;White</label><br />
 						<label><input type="checkbox" name="arrests-compare-black" value="Black">&nbsp;Black</label><br />
@@ -132,6 +128,7 @@
 						<label for="killed-states">State:&nbsp;</label>
 						<select class="form-control" name="killed-state">
 							<option value=""></option>
+							<option value="All">All States</option>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
 							<option value="AZ">Arizona</option>
@@ -185,19 +182,12 @@
 
 						<br />
 						<div class="row">
-							<div class="col-md-8"><label for="killed-name">Name:</label></div>
-							<div class="col-md-4" style="text-align: right">
-								<span class="data-table" data-toggle="modal" data-target="#nameModal">
-									<a name="nameList"><img src="assets/images/arrow.png" width="20" height="20" />See list</a>
-								</span>
-							</div>
+							<div class="col-md-2"><label for="killed-race">Race:&nbsp;</label></div>
+							<div class="col-md-10 text-right"><label><input type="checkbox" name="killed-race-count" value="CompareRace">&nbsp;Get Killed Count By Race</label></div>
 						</div>
-						<input type="text" class="form-control" name="killed-name" placeholder="Ex: Matthew Hoffman (See list for names)" />
-
-						<br />
-						<label for="killed-race">Race:&nbsp;</label>
 						<select class="form-control" name="killed-race">
 							<option value=""></option>
+							<option value="All">All Races</option>
 							<option value="White">White</option>
 							<option value="Black">Black</option>
 							<option value="Native American">Native American</option>
@@ -211,6 +201,28 @@
 						<label><input type="radio" name="killed-gender" value="Female">&nbsp;Female</label>
 
 						<br /><br />
+						<div class="row">
+							<div class="col-md-2"><label for="killed-month">Month:&nbsp;</label></div>
+							<div class="col-md-10 text-right"><label><input type="checkbox" name="killed-month-count" value="MonthCount">&nbsp;Get Killed Count By Month</label></div>
+						</div>
+						<select class="form-control" name="killed-month">
+							<option value=""></option>
+							<option value="All">All Months</option>
+							<option value="January">January</option>
+							<option value="February">February</option>
+							<option value="March">March</option>
+							<option value="April">April</option>
+							<option value="May">May</option>
+							<option value="June">June</option>
+							<option value="July">July</option>
+							<option value="August">August</option>
+							<option value="September">September</option>
+							<option value="October">October</option>
+							<option value="November">November</option>
+							<option value="December">December</option>
+						</select>
+
+						<br />
 						<label for="killed-classification">Classification:&nbsp;</label>
 						<select class="form-control" name="killed-classification">
 							<option value=""></option>
@@ -234,17 +246,6 @@
 							<option value="Disputed">Disputed</option>
 							<option value="Other">Other</option>
 						</select>
-
-						<br />
-						<div class="row">
-							<div class="col-md-8"><label for="killed-agency">Law Enforcement Agency:</label></div>
-							<div class="col-md-4" style="text-align: right">
-								<span class="data-table" data-toggle="modal" data-target="#agencyModal">
-									<a name="agencyList"><img src="assets/images/arrow.png" width="20" height="20" />See list</a>
-								</span>
-							</div>
-						</div>
-						<input type="text" class="form-control" name="killed-agency" placeholder="Ex: Oklahoma State Police (See list for names)" />
 					</div>
 				</div>
 
@@ -255,9 +256,10 @@
 						<span class="subtext">Population of each state by race. Able to compare the percentage of the population.</span>
 
 						<br />
-						<label for="population-states">State:&nbsp;</label>
+						<label for="population-states">State:</label>
 						<select class="form-control" name="population-states">
 							<option value=""></option>
+							<option value="All">All States</option>
 							<option value="United States">United States</option>
 							<option value="Alabama">Alabama</option>
 							<option value="Alaska">Alaska</option>
@@ -311,15 +313,77 @@
 						</select>
 
 						<br />
-						<label for="population-race">Race:&nbsp;</label>
+						<label for="population-race">Race:</label>
 						<select class="form-control" name="population-race">
 							<option value=""></option>
+							<option value="All">All Races</option>
 							<option value="White">White</option>
 							<option value="Black">Black</option>
 							<option value="Native">Native American</option>
 							<option value="Asian">Asian</option>
 							<option value="Pacific">Pacific Islander</option>
 						</select>
+
+						<hr />
+						<label for="population-compare-states">Compare State:&nbsp;</label> * State must be selected above. 
+						<select class="form-control" name="population-compare-states">
+							<option value=""></option>
+							<option value="United States">United States</option>
+							<option value="Alabama">Alabama</option>
+							<option value="Alaska">Alaska</option>
+							<option value="Arizona">Arizona</option>
+							<option value="Arkansas">Arkansas</option>
+							<option value="California">California</option>
+							<option value="Colordao">Colordao</option>
+							<option value="Connecticut">Connecticut</option>
+							<option value="Delaware">Delaware</option>
+							<option value="District of Columbia">District of Columbia</option>
+							<option value="Florida">Florida</option>
+							<option value="Georgia">Georgia</option>
+							<option value="Hawaii">Hawaii</option>
+							<option value="Idaho">Idaho</option>
+							<option value="Illinois">Illinois</option>
+							<option value="Indiana">Indiana</option>
+							<option value="Iowa">Iowa</option>
+							<option value="Kansas">Kansas</option>
+							<option value="Kentucky">Kentucky</option>
+							<option value="Louisiana">Louisiana</option> 
+							<option value="Maine">Maine</option>
+							<option value="Maryland">Maryland</option>
+							<option value="Massachusetts">Massachusetts</option>
+							<option value="Michigan">Michigan</option>
+							<option value="Minnesota">Minnesota</option>
+							<option value="Mississippi">Mississippi</option>
+							<option value="Missouri">Missouri</option>
+							<option value="Montana">Montana</option>
+							<option value="Nebraska">Nebraska</option>
+							<option value="Nevada">Nevada</option>
+							<option value="New Hampshire">New Hampshire</option>
+							<option value="New Jersey">New Jersey</option>
+							<option value="New Mexico">New Mexico</option>
+							<option value="New York">New York</option>
+							<option value="North Carolina">North Carolina</option>
+							<option value="North Dakota">North Dakota</option>
+							<option value="Ohio">Ohio</option>
+							<option value="Oklahoma">Oklahoma</option>
+							<option value="Pennsylvania">Pennsylvania</option>
+							<option value=">Rhode Island">Rhode Island</option>
+							<option value="South Carolina">South Carolina</option>
+							<option value="South Dakota">South Dakota</option>
+							<option value="Tennessee">Tennessee</option>
+							<option value="Texas">Texas</option>
+							<option value="Utah">Utah</option>
+							<option value="Vermont">Vermont</option>
+							<option value="Virginia">Virginia</option>
+							<option value="Washington">Washington</option>
+							<option value="West Virginia">West Virginia</option>
+							<option value="Wisconsin">Wisconsin</option>
+						</select>
+
+						<br /><br />
+						<span class="subtext">Other Options:</span>
+						* Race must be selected to see percentages.<br /><br />
+						<label><input type="checkbox" name="population-percentage" value="White">&nbsp;Show Results As Percentages</label><br />
 					</div>
 				</div>
 			</div>
@@ -327,7 +391,7 @@
 			<!-- FORM SUBMIT -->
 			<div class="row" id="db-form-submit">
 				<div class="col-md-9" id="db-form-submit-info">
-						CS336 - Michael Reid, Stephen Eisen, Mohammad Salim
+						<img src="assets/images/team.png" width="30" height="30" /> CS336 - Michael Reid, Stephen Eisen, Mohammad Salim
 				</div>
 				<div class="col-md-3" id="db-form-submit-btns">
 					<button type="submit" class="btn btn-primary" name="submit">Submit</button>
@@ -337,47 +401,18 @@
 		</form>
 	</section>
 
-	<!-- NAME MODAL -->
-	<div id="nameModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Names of People Killed</h4>
-			</div>
-			<div class="modal-body">
-				<span class="info">List of all the names that can be searched.</span>
-				<?php $listModal->getList("SELECT DISTINCT name FROM PersonKilled ORDER BY name ASC"); ?>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-	</div>
-
-	<!-- AGENCY MODAL -->
-	<div id="agencyModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Law Enforcement Agencies</h4>
-			</div>
-			<div class="modal-body">
-				<span class="info">List of all the agencies that can be searched.</span>
-				<?php $listModal->getList("SELECT DISTINCT lawenforcementagency, state FROM PersonKilled ORDER BY state, lawenforcementagency ASC"); ?>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-	</div>
-
 	<!-- FOOTER -->
 	<footer></footer>
-	<?php $listModal->close(); ?>
+
+	<!-- JAVASCRIPT -->
+	<script type="text/javascript">
+		document.getElementsByName('killed-month-count')[0].onclick = function() {
+			document.getElementsByName('killed-race-count')[0].checked = false;
+		}
+		document.getElementsByName('killed-race-count')[0].onclick = function() {
+			document.getElementsByName('killed-month-count')[0].checked = false;
+		}
+	</script>
 
 </body>
 </html>
