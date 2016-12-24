@@ -18,6 +18,10 @@
 		// Binding array
 		private $fields;
 
+		// Columns and clauses
+		private $columns;
+		private $clauses;
+
 		// MISC
 		private $counter;
 
@@ -27,14 +31,16 @@
 			$this->query = "";
 			$this->table = "PersonKilled";
 			$this->fields = array();
+			$this->columns = array();
+			$this->clauses = array();
 			$this->counter = 0;
 
 			$this->killed_state = $_POST['killed-state'];
 			$this->killed_race = $_POST['killed-race'];
-			$this->killed_month_count = (isset($_POST['killed-race-count'])) ? $_POST['killed-race-count'] : "";
+			$this->killed_race_count = isset($_POST['killed-race-count']);
 			$this->killed_gender = (isset($_POST['killed-gender'])) ? $_POST['killed-gender'] : "";
 			$this->killed_month = $_POST['killed-month'];
-			$this->killed_month_count = (isset($_POST['killed-month-count'])) ? $_POST['killed-month-count'] : "";
+			$this->killed_month_count = isset($_POST['killed-month-count']);
 			$this->killed_classification = $_POST['killed-classification'];
 			$this->killed_armed = $_POST['killed-armed'];
 		}
@@ -45,7 +51,16 @@
 			return $this->fields;
 		}
 
-		// Special queries
+		// Try new query by removing parameters
+		public function tryNewQuery()
+		{
+			array_pop($this->columns);
+			array_pop($this->clauses);
+			$this->build();
+
+			return $this->query;
+		}
+
 		public function getQuery()
 		{
 			// COMPARE THE RACES
@@ -53,137 +68,207 @@
 			{
 				if($this->killed_race != "All")
 				{
-					$columns = $this->build("year,") . "count(*) as 'People Killed by Police Officer'";
-					$query = "SELECT " . $columns . " FROM Race, " . $this->table . $this->query . " AND race = raceethnicity GROUP BY year ";
+					// Push the columns
+					array_push($this->columns, "year");
+					$this->setFields();
+					array_push($this->columns, "count(*) as 'People Killed By Police Officer'");
+
+					// Build the query
+					$this->build();
 				}
 				else
 				{
-					// Set the columns and query
+					// Do white
 					$this->killed_race = "White";
-					$columns = $this->build("year,") . "count(*) as 'People Killed by Police Officer'";
-					$query = "SELECT " . $columns . " FROM Race, " . $this->table . $this->query . " AND race = raceethnicity GROUP BY year ";
+					$this->setFields();
+					array_push($this->columns, "count(*) as 'People Killed By Police Officer'");
+					$this->build();
 
-					// Union with other races
-					$this->query = "";
+					// Union the rest
 					$this->killed_race = "Black";
-					$columns = $this->build("year,") . "count(*) as 'People Killed by Police Officer'";
-					$query .= "UNION ALL SELECT " . $columns . " FROM Race, " . $this->table . $this->query . " AND race = raceethnicity GROUP BY year ";
+					$this->setFields();
+					array_push($this->columns, "count(*) as 'People Killed By Police Officer'");
+					$this->build();
 
-					$this->query = "";
 					$this->killed_race = "Native American";
-					$columns = $this->build("year,") . "count(*) as 'People Killed by Police Officer'";
-					$query .= "UNION ALL SELECT " . $columns . " FROM Race, " . $this->table . $this->query . " AND race = raceethnicity GROUP BY year ";
+					$this->setFields();
+					array_push($this->columns, "count(*) as 'People Killed By Police Officer'");
+					$this->build();
 
-					$this->query = "";
 					$this->killed_race = "Asian/Pacific Islander";
-					$columns = $this->build("year,") . "count(*) as 'People Killed by Police Officer'";
-					$query .= "UNION ALL SELECT " . $columns . " FROM Race, " . $this->table . $this->query . " AND race = raceethnicity GROUP BY year";
+					$this->setFields();
+					array_push($this->columns, "count(*) as 'People Killed By Police Officer'");
+					$this->build();
 				}
-
-				// Save it
-				$this->query = $query;
 			}
 			// GET KILLED COUNT PER MONTH
 			else if(isset($_POST['killed-month-count']) && $this->killed_month != "")
 			{
-				// Set the columns
-				$columns = $this->build("year,") . "count(*) as 'People Killed by Police Officer'";
+				// Push the columns
+				array_push($this->columns, "year");
+				$this->setFields();
+				array_push($this->columns, "count(*) as 'People Killed By Police Officer'");
 
 				// Build the query
-				$query = "SELECT " . $columns . " FROM " . $this->table . $this->query;
-				$query .= " GROUP BY month ORDER BY field(month,'January','February','March','April','May','June','July','August','September','October','November','December')";
-				$this->query = $query;
+				$this->build();
 			}
 			// EVERYTHING ELSE
-			else 
+			else if($this->killed_state != "" || $this->killed_race != "" || $this->killed_gender != "Any" 
+					|| $this->killed_month != "" || $this->killed_classification != "" || $this->killed_armed != "")
 			{
-				// Build the WHERE and AND Clauses
-				if($this->build("") != "")
-				{
-					// Set the columns
-					$columns = "uid,name,age,gender,raceethnicity,month,year,state,classification,lawenforcementagency,armed";
-
-					// Build query
-					$query = "SELECT " . $columns . " FROM " . $this->table . $this->query;
-					$this->query = $query;
-				}
+				$this->setFields();
+				$this->build();
 			}
 
-			// Return the query
+			// Return it
 			return $this->query;
 		}
 
+		private function build()
+		{
+			// Start query
+			if(strlen($this->query) == 0)
+				$this->query = "SELECT ";
+			else if(strlen($this->query) > 0)
+				$this->query .= " UNION ALL SELECT ";
+
+			// Add all the columns
+			for($i = 0; $i < sizeof($this->columns); $i++)
+			{
+				$this->query .= $this->columns[$i] . ",";
+			}
+
+			// Remove comma and add FROM clause
+			$this->query = substr($this->query, 0, strlen($this->query) - 1) . " FROM " . $this->table;
+
+			// Add all clauses
+			for($i = 0; $i < sizeof($this->clauses); $i++)
+			{
+				$this->query .= $this->clauses[$i];
+			}
+
+			// Compare race checked
+			if((isset($_POST['killed-race-count']) || $this->killed_race == "All") && $this->killed_month != "All")
+				$this->query .= " GROUP BY year";
+			else if(isset($_POST['killed-month-count']))
+				$this->query .= " GROUP BY month ORDER BY field(month,'January','February','March','April','May','June','July','August','September','October','November','December')";
+		}
+
 		// See if anything is selected
-		private function build($columns)
+		private function setFields()
 		{	
-			// Boolean for WHERE or AND
+			// Boolean for clauses
 			$firstChosen = false;
+
+			// Default columns
+			if(!$this->killed_race_count && !$this->killed_month_count)
+			{
+				array_push($this->columns, "name", "age", "gender", "raceethnicity", "month", "year");
+				array_push($this->columns, "state", "classification", "lawenforcementagency", "armed");
+			}
+			else if($this->killed_race_count)
+			{
+				$this->columns = array();
+				$this->clauses = array();
+				array_push($this->columns, "year");
+			}
 
 			// STATE SELECTED
 			if($this->killed_state != "")
 			{
-				// Add column
-				if(isset($_POST['killed-race-count']) && $this->killed_state != "All")
-					$columns .= "state,";
-				else if(isset($_POST['killed-month-count']) && $this->killed_state != "All")
-					$columns .= "state,";
-				else if(!isset($_POST['killed-race-count']) && !isset($_POST['killed-month-count']))
-					$columns .= "state,";
+				// Push the column
+				if(!in_array("state", $this->columns))
+				{
+					if((isset($_POST['killed-race-count']) || isset($_POST['killed-month-count'])) && $this->killed_state != "All")
+						array_push($this->columns, "state");
+					else if(!isset($_POST['killed-race-count']) && !isset($_POST['killed-month-count']))
+						array_push($this->columns, "state");
+				}
 
-				// Add where clause and bind the field
+				// Push the where clause
 				if($this->killed_state != "All")
 				{
-					$this->query .= " WHERE state = :state";
+					array_push($this->clauses, " WHERE state = :state");
 					$this->fields[":state"] = $this->killed_state;
 
-					// First chosen
 					$firstChosen = true;
 				}
 			}
 			// RACE SELECTED
 			if($this->killed_race != "")
 			{
-				// Add column
-				$columns .= "raceethnicity,";
+				// Push the column
+				if(!in_array("raceethnicity", $this->columns))
+					array_push($this->columns, "raceethnicity");
 
-				// Add where or and clause and bind field
 				if($this->killed_race != "All")
 				{
-					$bindingIndex = ":raceethnicity" . $this->counter++;
-					$this->query .= (!$firstChosen) ? " WHERE raceethnicity = " . $bindingIndex : " AND raceethnicity = " . $bindingIndex;
-					$this->fields[$bindingIndex] = $this->killed_race;
+					// Key for binding
+					$key = ":raceethnicity" . $this->counter++;
+
+					// Push and bind
+					if($firstChosen)
+						array_push($this->clauses, " AND raceethnicity = " . $key);
+					else
+						array_push($this->clauses, " WHERE raceethnicity = " . $key);
+
+					// Bind field
+					$this->fields[$key] = $this->killed_race;
 
 					// First field chosen
 					$firstChosen = true;
 				}
 			}
 			// GENDER SELECTED
-			if($this->killed_gender != "Any")
+			if($this->killed_gender != "")
 			{
-				// Add column
-				$columns .= "gender,";
+				// Push the column
+				if(!in_array("gender", $this->columns))
+				{
+					if((isset($_POST['killed-race-count']) || isset($_POST['killed-month-count'])) && $this->killed_gender != "Any")
+						array_push($this->columns, "gender");
+					else if(!isset($_POST['killed-race-count']) && !isset($_POST['killed-month-count']))
+						array_push($this->columns, "gender");
+				}
 
-				// Add where or and clause and bind field
-				$this->query .= (!$firstChosen) ? " WHERE gender = :gender" : " AND gender = :gender";
-				$this->fields[":gender"] = $this->killed_gender;
+				// Push the where clause
+				if($this->killed_gender != "Any")
+				{
+					// Push and bind
+					if($firstChosen)
+						array_push($this->clauses, " AND gender = :gender");
+					else
+						array_push($this->clauses, " WHERE gender = :gender");
 
-				// First field chosen
-				$firstChosen = true;
+					$this->fields[":gender"] = $this->killed_gender;
+
+					// First field chosen
+					$firstChosen = true;
+				}
 			}
 			// MONTH SELECTED
 			if($this->killed_month != "")
-			{
-				// Add column
-				if(isset($_POST['killed-race-count']) && $this->killed_month != "All")
-					$columns .= "month,";
-				else if(!isset($_POST['killed-race-count']))
-					$columns .= "month,";
+			{	
+				// Push the column
+				if(!in_array("month", $this->columns))
+				{
+					if(isset($_POST['killed-race-count']) && $this->killed_month != "All")
+						array_push($this->columns, "month");
+					else if(isset($_POST['killed-month-count']))
+						array_push($this->columns, "month");
+					else if(!isset($_POST['killed-race-count']) && !isset($_POST['killed-month-count']))
+						array_push($this->columns, "month");
+				}
 
-				// Add where or and clause
+				// Push the where clause
 				if($this->killed_month != "All")
 				{
-					// Add where or and clause and bind field
-					$this->query .= (!$firstChosen) ? " WHERE month = :month" : " AND month = :month";
+					// Push and bind
+					if($firstChosen)
+						array_push($this->clauses, " AND month = :month");
+					else
+						array_push($this->clauses, " WHERE month = :month");
+
 					$this->fields[":month"] = $this->killed_month;
 
 					// First field chosen
@@ -193,32 +278,39 @@
 			// CLASSIFICATION SELECTED
 			if($this->killed_classification != "")
 			{
-				// Add column
-				$columns .= "classification,";
+				// Push the column
+				if(!in_array("classification", $this->columns))
+					array_push($this->columns, "classification");
 
-				// Add where or and clause and bind field
-				$this->query .= (!$firstChosen) ? " WHERE classification = :classification" : " AND classification = :classification";
+				// Push and bind
+				if($firstChosen)
+					array_push($this->clauses, " AND classification = :classification");
+				else
+					array_push($this->clauses, " WHERE classification = :classification");
+
 				$this->fields[":classification"] = $this->killed_classification;
 
 				// First field chosen
 				$firstChosen = true;
 			}
-			// ARMED SELECTED
+			// CLASSIFICATION SELECTED
 			if($this->killed_armed != "")
 			{
-				// Add column
-				$columns .= "armed,";
+				// Push the column
+				if(!in_array("armed", $this->columns))
+					array_push($this->columns, "armed");
 
-				/// Add where or and clause and bind field
-				$this->query .= (!$firstChosen) ? " WHERE armed = :armed" : " AND armed = :armed";
+				// Push and bind
+				if($firstChosen)
+					array_push($this->clauses, " AND armed = :armed");
+				else
+					array_push($this->clauses, " WHERE armed = :armed");
+
 				$this->fields[":armed"] = $this->killed_armed;
 
 				// First field chosen
 				$firstChosen = true;
 			}
-
-			// Return the columns
-			return $columns;
 		}
 	}
 ?>

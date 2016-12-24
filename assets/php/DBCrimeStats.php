@@ -179,7 +179,7 @@
 				echo '<div class="container">' . "\n\t\t\t";
 				echo '<div class="row" id="error-message">' . "\n\t\t\t\t";
 				echo '<span id="results"><img src="assets/images/error.png" width="24" height="24" />';
-				echo 'You must select or fill out at least one field in a column to get results.</span>';
+				echo 'Please make sure to fill out the appropriate fields in at least one column.</span>';
 				echo "\n\t\t\t" . '</div>';
 
 				echo "\n\n\t\t\t" . '<div class="row" id="error-message">';

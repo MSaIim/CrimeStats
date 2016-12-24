@@ -148,17 +148,17 @@
 				array_push($this->columns, $this->arrests_compare_black);
 				array_push($this->columns, "`" . $this->arrests_compare_black . " Percent`");
 			}
-			if(isset($_POST['arrests-compare-black']))
+			if(isset($_POST['arrests-compare-native']))
 			{
 				array_push($this->columns, $this->arrests_compare_native);
 				array_push($this->columns, "`" . $this->arrests_compare_native . " Percent`");
 			}
-			if(isset($_POST['arrests-compare-black']))
+			if(isset($_POST['arrests-compare-asian']))
 			{
 				array_push($this->columns, $this->arrests_compare_asian);
 				array_push($this->columns, "`" . $this->arrests_compare_asian . " Percent`");
 			}
-			if(isset($_POST['arrests-compare-black']))
+			if(isset($_POST['arrests-compare-pacific']))
 			{
 				array_push($this->columns, $this->arrests_compare_pacific);
 				array_push($this->columns, "`" . $this->arrests_compare_pacific . " Percent`");

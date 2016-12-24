@@ -38,9 +38,7 @@
 
 			<nav class="navbar-collapse collapse" id="menu">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="index.php">Home</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Help</a></li>
+					<li><a href="index.php">Search Tables</a></li>
 				</ul>
 			</nav>
 		</div>
