@@ -1,5 +1,5 @@
 # ![](http://i.imgur.com/Mn7sttC.png) Crime Statistics
-Rutgers University database project written in HTML, CSS, and PHP using SQL to query for information.
+Rutgers University database project website using HTML, CSS, PHP, and SQL to query for information.
 
 The website gives you statistics about crime from the year 2015. It aims to be as dynamic as possible so the user can pick out the information they want to know about without any forced queries.
 
