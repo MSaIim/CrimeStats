@@ -1,5 +1,5 @@
 # ![](http://i.imgur.com/Mn7sttC.png) Crime Statistics
-**Live Demo**: http://li1260-252.members.linode.com/index.php
+**Live Demo**: http://li1260-252.members.linode.com
 
 Rutgers University database project website using HTML, CSS, PHP, and SQL to query for information.
 
