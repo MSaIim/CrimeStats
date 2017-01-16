@@ -9,7 +9,7 @@
 			$username = "YOUR_USERNAME";
 			$password = "YOUR_PASSWORD";
 			$database = "CrimeStats";
-			$hostname = "YOUR_HOSTNAME";
+			$hostname = "YOU_HOSTNAME";
 
 			// Connect to database
 			$this->conn = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);

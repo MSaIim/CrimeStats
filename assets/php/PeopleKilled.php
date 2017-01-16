@@ -151,7 +151,7 @@
 			if((isset($_POST['killed-race-count']) || $this->killed_race == "All") && $this->killed_month != "All")
 				$this->query .= " GROUP BY year";
 			else if(isset($_POST['killed-month-count']))
-				$this->query .= " GROUP BY month ORDER BY field(month,'January','February','March','April','May','June','July','August','September','October','November','December')";
+				$this->query .= " GROUP BY year, month ORDER BY field(month,'January','February','March','April','May','June','July','August','September','October','November','December')";
 		}
 
 		// See if anything is selected
